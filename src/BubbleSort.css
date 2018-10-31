@@ -1,0 +1,17 @@
+.row-cell {
+  min-width: 100px;
+  text-align: center;
+  font-size: 4em;
+  display: inline-block;
+  border: 1px solid black;
+  margin-right: -1px;
+
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */  
+}
+
+.highlight {
+  background-color: orange;
+}
