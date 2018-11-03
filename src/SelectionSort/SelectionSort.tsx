@@ -23,7 +23,7 @@ export default class SelectionSort extends React.Component<Props, State> {
     const randomArray = ArrayGenerator.create(arrSize)
     this.state = {
       listOfNumbers: randomArray,
-      currentCursor: 0,
+      currentCursor: 1,
       currentIteration: 0,
       currentMax: randomArray[0],
       currentMaxIndex: 0
@@ -62,12 +62,16 @@ export default class SelectionSort extends React.Component<Props, State> {
     if (this.state.currentCursor < arrSize - this.state.currentIteration) {
       nextCursor = this.state.currentCursor + 1;
     } else {
-      const lastNonSortedIndex = arrSize - this.state.currentIteration - 1;
       nextCursor = 0;
       nextIteration++;
+
+      const lastNonSortedIndex = arrSize - this.state.currentIteration - 1;
       nextPass[nextMaxIndex] = nextPass[nextMaxIndex] ^ nextPass[lastNonSortedIndex];
       nextPass[lastNonSortedIndex] = nextPass[lastNonSortedIndex] ^ nextPass[nextMaxIndex];
       nextPass[nextMaxIndex] = nextPass[nextMaxIndex] ^ nextPass[lastNonSortedIndex];
+
+      nextMax = this.state.listOfNumbers[this.state.currentCursor];
+      nextMaxIndex = this.state.currentCursor;
     }
 
     this.setState({
