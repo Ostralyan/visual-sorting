@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrayGenerator from './utility/ArrayGenerator';
+import ArrayGenerator from '../utility/ArrayGenerator';
 import './BubbleSort.css';
 
 interface Props {}
@@ -10,17 +10,22 @@ interface State {
   currentIteration: number;
 }
 
+const arrSize = 10;
+
 export default class BubbleSort extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      listOfNumbers: ArrayGenerator.create(10),
+      listOfNumbers: ArrayGenerator.create(arrSize),
       currentCursor: 0,
       currentIteration: 0
     }
   }
 
   private nextBubble(): void {
+    if (this.state.currentIteration > this.state.listOfNumbers.length - 1) {
+      return;
+    }
     const nextPass = [...this.state.listOfNumbers];
     
     if (nextPass[this.state.currentCursor] > nextPass[this.state.currentCursor + 1]) {
@@ -32,7 +37,7 @@ export default class BubbleSort extends React.Component<Props, State> {
     let nextCursor = 0;
     let nextIteration = this.state.currentIteration;
 
-    if (this.state.currentCursor < 10 - this.state.currentIteration - 2) {
+    if (this.state.currentCursor < arrSize - this.state.currentIteration - 2) {
       nextCursor = this.state.currentCursor + 1;
     } else {
       nextCursor = 0;
@@ -55,6 +60,10 @@ export default class BubbleSort extends React.Component<Props, State> {
       if (i == this.state.currentCursor || i == this.state.currentCursor -1) {
         cellClasses.push('highlight');
       }
+
+      if (this.state.currentIteration > this.state.listOfNumbers.length - 2) {
+        cellClasses.push('sorted');
+      }
     
       table.push(
         <div className={cellClasses.join(' ')} key={i}>
@@ -66,7 +75,7 @@ export default class BubbleSort extends React.Component<Props, State> {
     return table;
   }
 
-  public render() {
+  public render(): React.ReactNode {
     return(
       <div onClick={() => this.nextBubble()}>
         <h1>
